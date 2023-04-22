@@ -1,8 +1,7 @@
-package com.myspring.pro28;
 class Category {
     String id;
     String name;
-    List<Category> children; // ÇÏÀ§ Ä«Å×°í¸®
+    List<Category> children; // í•˜ìœ„ ì¹´í…Œê³ ë¦¬
 
     public Category(String id, String name) {
         this.id = id;
@@ -14,7 +13,7 @@ class Category {
         children.add(child);
     }
 
-    // Ä«Å×°í¸® ½Äº°ÀÚ·Î °Ë»ö
+    // ì¹´í…Œê³ ë¦¬ ì‹ë³„ìë¡œ ê²€ìƒ‰
     public Category findCategoryById(String id) {
         if (this.id.equals(id)) {
             return this;
@@ -28,7 +27,7 @@ class Category {
         return null;
     }
 
-    // Ä«Å×°í¸®¸íÀ¸·Î °Ë»ö
+    // ì¹´í…Œê³ ë¦¬ëª…ìœ¼ë¡œ ê²€ìƒ‰
     public List<Category> findCategoryByName(String name) {
         List<Category> result = new ArrayList<>();
         if (this.name.equals(name)) {
@@ -40,7 +39,7 @@ class Category {
         return result;
     }
 
-    // Json text ·Î º¯È¯
+    // Json text ë¡œ ë³€í™˜
     public String toJson() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
@@ -51,7 +50,7 @@ class Category {
             sb.append(child.toJson() + ",");
         }
         if (!children.isEmpty()) {
-            sb.deleteCharAt(sb.length() - 1); // ¸¶Áö¸·¿¡ Ãß°¡µÇ´Â ½°Ç¥ Á¦°Å
+            sb.deleteCharAt(sb.length() - 1); // ë§ˆì§€ë§‰ì— ì¶”ê°€ë˜ëŠ” ì‰¼í‘œ ì œê±°
         }
         sb.append("]");
         sb.append("}");
@@ -66,7 +65,7 @@ class CategoryTree {
         this.categoryMap = new HashMap<>();
     }
 
-    // Ä«Å×°í¸® Ãß°¡
+    // ì¹´í…Œê³ ë¦¬ ì¶”ê°€
     public void addCategory(String id, String name, String parent_id) {
         Category category = new Category(id, name);
         if (parent_id != null) {
@@ -76,12 +75,12 @@ class CategoryTree {
         categoryMap.put(id, category);
     }
 
-    // Ä«Å×°í¸® ½Äº°ÀÚ·Î °Ë»ö
+    // ì¹´í…Œê³ ë¦¬ ì‹ë³„ìë¡œ ê²€ìƒ‰
     public Category findCategoryById(String id) {
         return categoryMap.get(id);
     }
 
-    // Ä«Å×°í¸®¸íÀ¸·Î °Ë»ö
+    // ì¹´í…Œê³ ë¦¬ëª…ìœ¼ë¡œ ê²€ìƒ‰
     public List<Category> findCategoryByName(String name) {
         List<Category> result = new ArrayList<>();
         for (Category category : categoryMap.values()) {
@@ -90,7 +89,7 @@ class CategoryTree {
         return result;
     }
 
-    // Json text ·Î º¯È¯
+    // Json text ë¡œ ë³€í™˜
     public String toJson() {
         List<Category> rootCategories = new ArrayList<>();
         for (Category category : categoryMap.values()) {
@@ -104,7 +103,7 @@ class CategoryTree {
             sb.append(category.toJson() + ",");
         }
         if (!rootCategories.isEmpty()) {
-            sb.deleteCharAt(sb.length() - 1); // ¸¶Áö¸·¿¡ Ãß°¡µÇ´Â ½°Ç¥ Á¦°Å
+            sb.deleteCharAt(sb.length() - 1); // ë§ˆì§€ë§‰ì— ì¶”ê°€ë˜ëŠ” ì‰¼í‘œ ì œê±°
         }
         sb.append("]");
         return sb.toString();
